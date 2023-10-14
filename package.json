@@ -1,0 +1,31 @@
+{
+  "name": "hyperimport",
+  "version": "0.1.0",
+  "description": "⚡ Import c, rust, zig etc. files in your TypeScript code and more.",
+  "main": "src/index.ts",
+  "files": [
+    "preload.ts",
+    "src"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tr1ckydev/hyperimport.git"
+  },
+  "keywords": [
+    "hyperimport",
+    "ffi",
+    "import",
+    "bun",
+    "rust",
+    "zig"
+  ],
+  "author": "tr1ckydev",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tr1ckydev/hyperimport/issues"
+  },
+  "homepage": "https://github.com/tr1ckydev/hyperimport#readme",
+  "devDependencies": {
+    "bun-types": "latest"
+  }
+}
