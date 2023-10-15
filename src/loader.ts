@@ -49,11 +49,13 @@ export default class {
      */
     async initConfigTypes() {
         const filename = basename(this.config.importPath);
+        const targetFile = `${this.cwd}/@types/${filename}`;
+        const configFile = `${targetFile}/config.ts`;
         
-        mkdirSync(`${this.cwd}/@types/${filename}`, { recursive: true });
-        Bun.write(`${this.cwd}/@types/${filename}/lastModified`, lastModified(this.config.importPath));
+        mkdirSync(targetFile, { recursive: true });
+        Bun.write(`${targetFile}/lastModified`, lastModified(this.config.importPath));
         
-        const configWriter = Bun.file(`${this.cwd}/@types/${filename}/config.ts`).writer();
+        const configWriter = Bun.file(configFile).writer();
         
         configWriter.write(
             `import { LoaderConfig, T } from "hyperimport";\n` 
@@ -67,12 +69,11 @@ export default class {
         configWriter.end();
         
         Bun.write(
-            `${this.cwd}/@types/${filename}/types.d.ts`,
+            `${targetFile}/types.d.ts`,
             `declare module "*/${filename}" {\n\tconst symbols: import("bun:ffi").ConvertFns<typeof import("./config.ts").default.symbols>;\n\texport = symbols;\n}`
         );
-        
         console.log(
-            `\n\x1b[32mConfig file has been generated at "${this.cwd}/@types/${filename}/config.ts"\x1b[39m\n` 
+            `\n\x1b[32mConfig file has been generated at "${configFile}"\x1b[39m\n` 
             + `Edit the config.ts and set the argument and return types, then rerun the script.`
         );
     }
@@ -94,8 +95,8 @@ export default class {
      * Checks if the source file was modified, if it is, then `build()` is executed to rebuild the changed source file.
      */
     async ifSourceModify() {
-        const lm = lastModified(this.config.importPath),
-            lmfile = `${this.cwd}/@types/${basename(this.config.importPath)}/lastModified`;
+        const lm = lastModified(this.config.importPath);
+        const lmfile = `${this.cwd}/@types/${basename(this.config.importPath)}/lastModified`;
         
         if (lm !== await Bun.file(lmfile).text()) {
             await this.build();
@@ -134,7 +135,6 @@ export default class {
     async toPlugin(): Promise<BunPlugin> {
         return {
             name: this.name,
-            // Arrow function does not have a scope so it can access parent this
             setup: build => {
                 build.onLoad({ filter: new RegExp(`\.(${this._config.extension})$`) }, async args => {
                     this.config.importPath = args.path;
