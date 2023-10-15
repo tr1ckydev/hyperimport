@@ -2,7 +2,7 @@
 
 # hyperimport
 
-⚡ TypeScript imports on steroids. Import C, Rust, Zig, etc in your TypeScript code and more.
+⚡ TypeScript imports on steroids. Import C, Rust, Zig etc. files in your typescript code and more.
 
 A powerful plugin for the [bun](https://bun.sh/) runtime that pushes the limits of Plugin and FFI APIs together, lets you easily import functions from other languages. It works with languages that support the C ABI (Zig, Rust, C/C++, C#, Nim, Kotlin, etc). If the loader of your language isn't there already, go ahead write your own custom loader with it's super flexible API and extend hyperimport to support your favorite language or even customize the built-in loaders to work in the way you want. Not just loaders but any plugin can be imported through hyperimport. [Learn more](https://github.com/tr1ckydev/hyperimport/wiki/Configuration#custom-string).
 
