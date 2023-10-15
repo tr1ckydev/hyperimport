@@ -5,7 +5,7 @@
  * @param args The message to print.
  */
 export function debugLog(isDebug: boolean, mode: 1 | 2 | 3, ...args: string[]) {
-    console.assert(!isDebug, `\x1b[3${mode}m\x1b[1m[HYPERIMPORT]\x1b[22m\x1b[39m`, ...args);
+  console.assert(!isDebug, `\x1b[3${mode}m\x1b[1m[HYPERIMPORT]\x1b[22m\x1b[39m`, ...args);
 }
 
 /**
@@ -13,7 +13,7 @@ export function debugLog(isDebug: boolean, mode: 1 | 2 | 3, ...args: string[]) {
  * @param path The path to the file.
  */
 export function lastModified(path: string) {
-    return `${Bun.file(path).lastModified}`;
+  return `${Bun.file(path).lastModified}`;
 }
 
 /**
@@ -21,5 +21,5 @@ export function lastModified(path: string) {
  * @param path The path to the library to be loaded.
  */
 export function nm(path: string) {
-    return [...Bun.spawnSync(["nm", path]).stdout.toString().matchAll(/T (.*)$/gm)].map(x => x[1]);
+  return [...Bun.spawnSync(["nm", path]).stdout.toString().matchAll(/T (.*)$/gm)].map(x => x[1][0] === "_" ? x[1].slice(1) : x[1]);
 }
