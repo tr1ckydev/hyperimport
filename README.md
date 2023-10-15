@@ -2,9 +2,9 @@
 
 # hyperimport
 
-⚡ TypeScript imports on steriods. Import c, rust, zig etc. files in your typescript code and more.
+⚡ TypeScript imports on steroids. Import C, Rust, Zig etc. files in your TypeScript code and more.
 
-A powerful plugin for the [bun](https://bun.sh/) runtime that pushes the limits of Plugin and FFI APIs together, lets you easily import functions from other languages. It works with languages that support the C ABI (Zig, Rust, C/C++, C#, Nim, Kotlin, etc). If the loader of your language isn't there already, go ahead write your own custom loader with it's super flexible API and extend hyperimport to support your favorite language or even customize the built-in loaders to work in the way you want. Not just loaders but any plugin can be imported through hyperimport. [Learn more](https://github.com/tr1ckydev/hyperimport/wiki/Configuration#custom-string).
+A powerful plugin for the [Bun](https://bun.sh/) runtime that pushes the limits of Plugin and FFI APIs together, lets you easily import functions from other languages. It works with languages that support the C ABI (Zig, Rust, C/C++, C#, Nim, Kotlin, etc). If the loader of your language isn't there already, go ahead write your own custom loader with it's super flexible API and extend hyperimport to support your favorite language or even customize the built-in loaders to work in the way you want. Not just loaders but any plugin can be imported through hyperimport. [Learn more](https://github.com/tr1ckydev/hyperimport/wiki/Configuration#custom-string).
 
 [Read the dev.to article for behind the scenes of this project.](https://dev.to/tr1ckydev/hyperimport-import-c-rust-zig-etc-files-in-typescript-1ia5)
 
@@ -28,7 +28,7 @@ pub extern "C" fn add(a: isize, b: isize) -> isize {
 
 and, more...
 
-- Write a typescript program using native C functions through libc. [See how](https://github.com/tr1ckydev/hyperimport/wiki/Importing-libc-in-typescript).
+- Write a TypeScript program using native C functions through libc. [See how](https://github.com/tr1ckydev/hyperimport/wiki/Importing-libc-in-typescript).
 - Import native system functions in typescript through system shared libraries.
 - Your imagination is now your limit...
 
@@ -37,8 +37,8 @@ and, more...
 ## Showcases
 
 - Featured at official Bun 1.0 launch - [Watch video](https://youtu.be/BsnCpESUEqM?t=221)
-- Importing a rust function in typescript (@jarredsumner) - [Watch video](https://twitter.com/jarredsumner/status/1681608754067046400)
-- Importing a zig function in typescript (@jarredsumner) - [Watch video](https://twitter.com/jarredsumner/status/1681610300699869184)
+- Importing a Rust function in typescript (@jarredsumner) - [Watch video](https://twitter.com/jarredsumner/status/1681608754067046400)
+- Importing a Zig function in typescript (@jarredsumner) - [Watch video](https://twitter.com/jarredsumner/status/1681610300699869184)
 
 ![](https://media.giphy.com/media/aWPGuTlDqq2yc/giphy.gif)
 
