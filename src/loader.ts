@@ -31,9 +31,16 @@ export default class {
      * By default asks for the build command and output directory from the user on importing the source file for the first time.
      */
     async initConfigPre() {
-        console.log(`\x1b[33m[HYPERIMPORT]\x1b[39m: ${this.name}\nNo configuration was found for "${this.config.importPath}"\nEnter the build command and output directory to configure it.\nPress enter to use the default values.\n`);
+        console.log(
+            `\x1b[33m[HYPERIMPORT]\x1b[39m: ${this.name}\n` 
+            + `No configuration was found for "${this.config.importPath}"\n`
+            + `Enter the build command and output directory to configure it.\n` 
+            + `Press enter to use the default values.\n`
+        );
+        
         this.config.buildCommand = prompt("build command: (default)")?.split(" ") ?? this.config.buildCommand;
         this.config.outDir = prompt(`output directory: (${this.config.outDir})`) ?? this.config.outDir;
+        
         mkdirSync(this.config.outDir, { recursive: true });
     }
 
@@ -42,20 +49,32 @@ export default class {
      */
     async initConfigTypes() {
         const filename = basename(this.config.importPath);
+        
         mkdirSync(`${this.cwd}/@types/${filename}`, { recursive: true });
         Bun.write(`${this.cwd}/@types/${filename}/lastModified`, lastModified(this.config.importPath));
+        
         const configWriter = Bun.file(`${this.cwd}/@types/${filename}/config.ts`).writer();
-        configWriter.write(`import { LoaderConfig, T } from "hyperimport";\nexport default {\n\tbuildCommand: ${JSON.stringify(this.config.buildCommand)},\n\toutDir: "${this.config.outDir}",\n\tsymbols: {`);
-        for (const symbol of nm(this.config.libPath)) {
+        
+        configWriter.write(
+            `import { LoaderConfig, T } from "hyperimport";\n` 
+            + `export default {\n\tbuildCommand: ${JSON.stringify(this.config.buildCommand)},\n\toutDir: "${this.config.outDir}",\n\tsymbols: {`
+        );
+        
+        for (const symbol of nm(this.config.libPath)) 
             configWriter.write(`\n\t\t${symbol}: {\n\t\t\targs: [],\n\t\t\treturns: T.void\n\t\t},`);
-        }
+        
         configWriter.write(`\n\t}\n} satisfies LoaderConfig.Main;`);
         configWriter.end();
+        
         Bun.write(
             `${this.cwd}/@types/${filename}/types.d.ts`,
             `declare module "*/${filename}" {\n\tconst symbols: import("bun:ffi").ConvertFns<typeof import("./config.ts").default.symbols>;\n\texport = symbols;\n}`
         );
-        console.log(`\n\x1b[32mConfig file has been generated at "${this.cwd}/@types/${filename}/config.ts"\x1b[39m\nEdit the config.ts and set the argument and return types, then rerun the script.`);
+        
+        console.log(
+            `\n\x1b[32mConfig file has been generated at "${this.cwd}/@types/${filename}/config.ts"\x1b[39m\n` 
+            + `Edit the config.ts and set the argument and return types, then rerun the script.`
+        );
     }
 
     /**
@@ -63,8 +82,10 @@ export default class {
      */
     async initConfig() {
         await this.initConfigPre();
+        
         console.log("\nBuilding the source file...");
         await this.build();
+        
         console.log("The source file has been built.");
         await this.initConfigTypes();
     }
@@ -73,8 +94,9 @@ export default class {
      * Checks if the source file was modified, if it is, then `build()` is executed to rebuild the changed source file.
      */
     async ifSourceModify() {
-        const lm = lastModified(this.config.importPath);
-        const lmfile = `${this.cwd}/@types/${basename(this.config.importPath)}/lastModified`;
+        const lm = lastModified(this.config.importPath),
+            lmfile = `${this.cwd}/@types/${basename(this.config.importPath)}/lastModified`;
+        
         if (lm !== await Bun.file(lmfile).text()) {
             await this.build();
             Bun.write(lmfile, lm);
@@ -110,20 +132,20 @@ export default class {
      * @returns A `BunPlugin` instance.
      */
     async toPlugin(): Promise<BunPlugin> {
-        const parentThis = this;
         return {
-            name: parentThis.name,
-            setup(build) {
-                build.onLoad({ filter: new RegExp(`\.(${parentThis._config.extension})$`) }, async args => {
-                    parentThis.config.importPath = args.path;
-                    await parentThis.preload();
+            name: this.name,
+            // Arrow function does not have a scope so it can access parent this
+            setup: build => {
+                build.onLoad({ filter: new RegExp(`\.(${this._config.extension})$`) }, async args => {
+                    this.config.importPath = args.path;
+                    await this.preload();
+                    
                     return {
-                        exports: dlopen(parentThis.config.libPath, await parentThis.getSymbols()).symbols,
+                        exports: dlopen(this.config.libPath, await this.getSymbols()).symbols,
                         loader: "object"
                     };
                 });
             }
         };
     }
-
 }
