@@ -25,6 +25,10 @@
     "url": "https://github.com/tr1ckydev/hyperimport/issues"
   },
   "homepage": "https://github.com/tr1ckydev/hyperimport#readme",
+  "dependencies": {
+    "tree-sitter": "^0.20.5",
+    "tree-sitter-rust": "^0.20.4"
+  },
   "devDependencies": {
     "bun-types": "latest"
   }

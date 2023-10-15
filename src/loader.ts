@@ -46,8 +46,12 @@ export default class {
         Bun.write(`${this.cwd}/@types/${filename}/lastModified`, lastModified(this.config.importPath));
         const configWriter = Bun.file(`${this.cwd}/@types/${filename}/config.ts`).writer();
         configWriter.write(`import { LoaderConfig, T } from "hyperimport";\nexport default {\n\tbuildCommand: ${JSON.stringify(this.config.buildCommand)},\n\toutDir: "${this.config.outDir}",\n\tsymbols: {`);
-        for (const symbol of nm(this.config.libPath)) {
-            configWriter.write(`\n\t\t${symbol}: {\n\t\t\targs: [],\n\t\t\treturns: T.void\n\t\t},`);
+        const symbols = nm(this.config.libPath);
+        const types = this._config.parseTypes?.(this.config.importPath, symbols);
+        for (const symbol of symbols) {
+            const type = types?.[symbol] ?? { args: [], returns: "T.void" };
+            const args = type.args.join(", ");
+            configWriter.write(`\n\t\t${symbol}: {\n\t\t\targs: [${args}],\n\t\t\treturns: ${type.returns}\n\t\t},`);
         }
         configWriter.write(`\n\t}\n} satisfies LoaderConfig.Main;`);
         configWriter.end();
@@ -77,6 +81,7 @@ export default class {
         const lmfile = `${this.cwd}/@types/${basename(this.config.importPath)}/lastModified`;
         if (lm !== await Bun.file(lmfile).text()) {
             await this.build();
+            await this.initConfigTypes();
             Bun.write(lmfile, lm);
         }
     }

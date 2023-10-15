@@ -20,6 +20,7 @@ export namespace LoaderConfig {
         extension: string,
         buildCommand?: (importPath: string, outDir: string) => string[],
         outDir?: (importPath: string) => string,
+        parseTypes?: (importPath: string, targets: string[]) => Record<string, { args: string[], returns: string }> | undefined,
     }
 
     export interface Internal {

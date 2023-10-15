@@ -7,7 +7,7 @@ const config: HyperImportConfig = (await import(`${cwd}/bunfig.toml`)).default.h
 debugLog(config.debug, 3, "registering loaders...");
 
 for (const loader of config.loaders ?? []) {
-    await import(`./src/loaders/${loader}.ts`).then(async l => {
+    await import(`./src/loaders/${loader}`).then(async l => {
         const plugin = await new l.default(cwd).toPlugin();
         Bun.plugin(plugin);
         debugLog(config.debug, 2, plugin.name, "has been registered.");
