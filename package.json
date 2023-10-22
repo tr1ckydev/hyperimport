@@ -32,5 +32,9 @@
   },
   "devDependencies": {
     "bun-types": "latest"
-  }
+  },
+  "trustedDependencies": [
+    "tree-sitter",
+    "tree-sitter-rust"
+  ]
 }
