@@ -1,4 +1,5 @@
 const fs = require("fs");
+const arch = require("arch");
 const Parser = require("tree-sitter");
 const Rust = require("tree-sitter-rust");
 
@@ -10,6 +11,8 @@ parser.setLanguage(Rust);
 
 const source = fs.readFileSync(path, "utf8");
 const tree = parser.parse(source);
+
+const size = arch() === "x64" ? "64" : "32";
 
 const typeMap = {
   "()": "T.void",
@@ -24,8 +27,8 @@ const typeMap = {
   "i64": "T.i64",
   "f32": "T.f32",
   "f64": "T.f64",
-  "usize": "T.ptr",
-  "isize": "T.ptr",
+  "usize": `T.u${size}`,
+  "isize": `T.i${size}`,
   "char": "T.u32"
 };
 

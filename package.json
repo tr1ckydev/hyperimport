@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/tr1ckydev/hyperimport#readme",
   "dependencies": {
+    "arch": "^2.2.0",
     "tree-sitter": "^0.20.5",
     "tree-sitter-rust": "^0.20.4"
   },
