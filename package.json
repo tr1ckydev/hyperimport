@@ -1,6 +1,6 @@
 {
   "name": "hyperimport",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "⚡ Import c, rust, zig etc. files in your TypeScript code and more.",
   "main": "src/index.ts",
   "files": [

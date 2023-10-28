@@ -1,6 +1,6 @@
 import { BunPlugin } from "bun";
 import { FFIFunction, Narrow, dlopen, suffix } from "bun:ffi";
-import { mkdirSync } from "fs";
+import { mkdirSync, readFileSync } from "fs";
 import { basename, parse } from "path";
 import { LoaderConfig } from "./types";
 import { lastModified, nm } from "./utils";
@@ -75,7 +75,7 @@ export default class {
     async ifSourceModify() {
         const lm = lastModified(this.config.importPath);
         const lmfile = `${this.cwd}/@types/${basename(this.config.importPath)}/lastModified`;
-        if (lm !== await Bun.file(lmfile).text()) {
+        if (lm !== readFileSync(lmfile).toString()) {
             await this.build();
             Bun.write(lmfile, lm);
         }

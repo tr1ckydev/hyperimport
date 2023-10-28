@@ -1,7 +1,7 @@
 /**
  * Prints a debug message to the console.
  * @param isDebug The boolean debug flag.
- * @param mode The color of the message.
+ * @param mode The color of the message (1: red, 2: green, 3: yellow).
  * @param args The message to print.
  */
 export function debugLog(isDebug: boolean, mode: 1 | 2 | 3, ...args: string[]) {
@@ -18,6 +18,7 @@ export function lastModified(path: string) {
 
 /**
  * Returns the list of exported symbols in the library using the `nm` command.
+ * (Removes the leading underscore if any.)
  * @param path The path to the library to be loaded.
  */
 export function nm(path: string) {
