@@ -39,8 +39,9 @@ and, more...
 - Featured at official Bun 1.0 launch - [Watch video](https://youtu.be/BsnCpESUEqM?t=221)
 - Importing a Rust function in typescript (@jarredsumner) - [Watch video](https://twitter.com/jarredsumner/status/1681608754067046400)
 - Importing a Zig function in typescript (@jarredsumner) - [Watch video](https://twitter.com/jarredsumner/status/1681610300699869184)
+- Walkthrough guide by the community - [Watch video](https://www.youtube.com/watch?v=boD1m5Ex80c)
 
-![](https://media.giphy.com/media/aWPGuTlDqq2yc/giphy.gif)
+
 
 ## Documentation
 
