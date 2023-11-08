@@ -4,7 +4,7 @@
 
 ⚡ TypeScript imports on steroids. Import C, Rust, Zig etc. files in your TypeScript code and more.
 
-A powerful plugin for the [Bun](https://bun.sh/) runtime that pushes the limits of Plugin and FFI APIs together, lets you easily import functions from other languages. It works with languages that support the C ABI (Zig, Rust, C/C++, C#, Nim, Kotlin, etc). If the loader of your language isn't there already, go ahead write your own custom loader with it's super flexible API and extend hyperimport to support your favorite language or even customize the built-in loaders to work in the way you want. Not just loaders but any plugin can be imported through hyperimport. [Learn more](https://github.com/tr1ckydev/hyperimport/wiki/Configuration#custom-string).
+A powerful plugin for the [Bun](https://bun.sh/) runtime that pushes the limits of Plugin and FFI APIs together, lets you easily import functions from other languages. It works with languages that support the C ABI (Zig, Rust, C/C++, C#, Nim, Kotlin, etc). If the loader of your language isn't there already, go ahead write your own custom loader with it's super flexible API and extend hyperimport to support your favorite language or even customize the built-in loaders to work in the way you want. Not just loaders but any plugin can be imported in hyperimport through it's own package management from [hyperimport registry](https://github.com/tr1ckydev/hyperimport_registry) (our own community registry for bun plugins). [See how](https://github.com/tr1ckydev/hyperimport/wiki/Importing-a-package).
 
 [Read the dev.to article for behind the scenes of this project.](https://dev.to/tr1ckydev/hyperimport-import-c-rust-zig-etc-files-in-typescript-1ia5)
 
@@ -30,6 +30,7 @@ and, more...
 
 - Write a TypeScript program using native C functions through libc. [See how](https://github.com/tr1ckydev/hyperimport/wiki/Importing-libc-in-typescript).
 - Import native system functions in typescript through system shared libraries.
+- Import any kind of bun plugin package from the [hyperimport registry](https://github.com/tr1ckydev/hyperimport_registry).
 - Your imagination is now your limit...
 
 

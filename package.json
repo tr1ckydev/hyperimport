@@ -1,6 +1,6 @@
 {
   "name": "hyperimport",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "⚡ Import c, rust, zig etc. files in your TypeScript code and more.",
   "main": "src/index.ts",
   "files": [
@@ -13,6 +13,7 @@
   },
   "keywords": [
     "hyperimport",
+    "plugin",
     "ffi",
     "import",
     "bun",
@@ -25,6 +26,7 @@
     "url": "https://github.com/tr1ckydev/hyperimport/issues"
   },
   "homepage": "https://github.com/tr1ckydev/hyperimport#readme",
+  "bin": "./src/cli.ts",
   "devDependencies": {
     "bun-types": "latest"
   }

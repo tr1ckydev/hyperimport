@@ -5,6 +5,7 @@ export { FFIType as T } from "bun:ffi";
 export interface HyperImportConfig {
     loaders?: string[],
     custom?: string[],
+    packages?: string[],
     debug: boolean,
 }
 
